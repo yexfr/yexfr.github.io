@@ -1,0 +1,199 @@
+@import './hljs.css';
+
+#editor-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.editor-container[data-lang] {
+  flex: 1;
+  display:flex;
+  position: relative;
+  margin-inline: 0.25rem;
+  border: solid 1px var(--theme-clr);
+  border-radius: 8px;
+  height: 18.75rem;
+  overflow-y: auto;
+}
+
+.editor-container[data-lang] .stack {
+  display: grid;
+  flex: 1;
+}
+
+.editor-container[data-lang] .editing {
+  z-index: 1;
+  color: transparent;
+  background: transparent;
+  caret-color: white;
+  resize: none;
+  overflow-y: hidden;
+}
+
+.editor-container[data-lang] .highlighting {
+  background-color: color-mix(in srgb, blueviolet, black 90%);
+}
+
+.editor-container[data-lang] :is(.editing, .highlighting) {
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  border: none;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  grid-area: 1 / 1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+  border-radius: 0;
+}
+
+.editor-container[data-lang]::-webkit-scrollbar-track {
+  background-color: color-mix(in srgb, blueviolet, black 75%);
+  border-radius: 0 8px 8px 0;
+  border-right: var(--theme-clr) 1px solid;
+  border-top: var(--theme-clr) 1px solid;
+  border-bottom: var(--theme-clr) 1px solid;
+}
+
+.editor-container[data-lang]::-webkit-scrollbar-thumb {
+  border-radius: 0 8px 8px 0;
+}
+
+.editor-container[data-lang] .editing:focus-visible {
+  outline: none !important;
+}
+
+ul.gutter {
+  list-style: none;
+  margin: 0;
+  padding-inline: 0.75rem 1.5rem;
+  font-family: monospace;
+  font-size: 1rem;
+  text-align: center;
+  user-select: none;
+  height: fit-content;
+  min-height: 100%;
+  color: white;
+  border-right: 1px solid rgb(255, 255, 255, 0.1);
+  background-color: color-mix(in srgb, blueviolet, black 90%);
+}
+
+iframe#test {
+  border: solid 1px var(--theme-clr);
+  width: 40vw;
+  height: 25rem;
+  resize: both;
+  transition: none;
+  overflow-clip-margin: border-box;
+}
+
+div#consoleWindow {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  z-index: 2;
+  overflow: hidden;
+  resize: both;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border-radius: 0.75rem;
+}
+
+div#consoleTitle :is(button, p, img) {
+  display: inline;
+  user-select: none;
+}
+
+div#consoleTitle {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  gap: 0.25rem;
+  background-color: #1e1e1e;
+}
+
+div#consoleTitle p.title {
+  text-shadow: none;
+  font-size: 1rem;
+  margin: 0;
+  text-align: initial;
+  width: auto;
+}
+
+div#consoleTitle button.close-button {
+  position: absolute;
+  inset: 0 0 auto auto;
+  padding: 0.25rem 0.5rem;
+  height: 100%;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 300ms;
+}
+
+div#consoleTitle button.close-button:hover {
+  background: tomato;
+}
+
+div#consoleContent {
+  width: 100%;
+  flex: 1;
+  background-color: #3e3e3e;
+  font-family: monospace;
+  overflow: auto;
+}
+
+div#consoleContent ul#consoleMessages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 100%;
+  width: fit-content;
+}
+
+ul#consoleMessages > li {
+  background-color: #4e4e4e;
+  min-width: 100%;
+  width: fit-content;
+  white-space: pre;
+  border-bottom: 1px gainsboro solid;
+  padding: 0.25rem 0.75rem;
+  tab-size: 2;
+}
+
+:is(ul#consoleMessages > li, span.line).error {
+  background-color: maroon;
+}
+
+ul#consoleMessages > li.info {
+  background-color: darkcyan;
+}
+
+ul#consoleMessages > li.warn {
+  background-color: darkgoldenrod;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.line {
+  display: block;
+}
+
+.current {
+  background-color: color-mix(in srgb, blueviolet, black 75%);
+}
+
+.bracket-hl {
+  background-color: color-mix(in srgb, blueviolet, black 85%);
+  outline: 1px solid rgb(255, 255, 255, 0.25);
+}

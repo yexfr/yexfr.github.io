@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDE</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=5">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=5">
+  <link rel="manifest" href="site.webmanifest?v=5">
+  <link rel="mask-icon" href="safari-pinned-tab.svg?v=5" color="#a830bd">
+  <link rel="shortcut icon" href="favicon.ico?v=5">
+  <meta name="msapplication-TileColor" content="#9f00a7">
+  <meta name="theme-color" content="#ffffff">
+  <link href="new.css" rel="stylesheet" type="text/css" />
+  <link href="snackbar.css" rel="stylesheet" type="text/css" />
+  <link href="highlight.css" rel="stylesheet" type="text/css" />
+  <base target="_parent" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <header>
+    <h2 id="header"><a class="yex">Yex</a>'s IDE</h2>
+    <nav>
+      <a href="index.html" data-tippy-content="Home"><i class="fas fa-home"></i></a>
+      <a href="about.html" data-tippy-content="About"><i class="fas fa-info-circle"></i></a>
+      <a href="games.html" data-tippy-content="Games"><i class="fas fa-gamepad"></i></a>
+      <div class="has-dropdown">
+        <button id="settings" data-tippy-content="Settings"><i class="fas fa-cog fa-spin"></i></button>
+        <ul class="dropdown">
+          <li class="dropdown-item">
+            <button data-color="red">Red</button>
+          </li>
+          <li class="dropdown-item">
+            <button data-color="rgb(50, 150, 255)" class="active">Blue</button>
+          </li>
+          <li class="dropdown-item">
+            <button data-color="limegreen">Green</button>
+          </li>
+          <li class="dropdown-item">
+            <input type="color" id="thmclr">
+            <button data-custom>Custom</button>
+          </li>
+        </ul>
+      </div>
+      <a href="bookmarklets.html" data-tippy-content="Bookmarklets"><i class="fas fa-bookmark"></i></a>
+      <a href="chat.html" data-tippy-content="Chat"><i class="fas fa-comments"></i></a>
+      <a href="privacy-policy.html" data-tippy-content="Privacy Policy"><i class="fas fa-user-lock"></i></a>
+      <a href="https://discord.gg/V49EfgSWgr" data-tippy-content="Discord"><i class="fab fa-discord"></i></a>
+      <a class="active"><i class="fas fa-code"></i></a>
+    </nav>
+  </header>
+  <main>
+    <div id="editor-flex">
+      <div class="editor-container" data-lang="html">
+        <ul class="gutter" role="list"></ul>
+        <div class="stack">
+          <textarea placeholder="Enter HTML Source Code" class="editing" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+          <pre class="highlighting" aria-hidden="true"><code class="language-html"></code></pre>
+        </div>
+      </div>
+      <div class="editor-container" data-lang="css">
+        <ul class="gutter" role="list"></ul>
+        <div class="stack">
+          <textarea placeholder="Enter CSS Source Code" class="editing" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+          <pre class="highlighting" aria-hidden="true"><code class="language-css"></code></pre>
+        </div>
+      </div>
+      <div class="editor-container" data-lang="js">
+        <ul class="gutter" role="list"></ul>
+        <div class="stack">
+          <textarea placeholder="Enter JavaScript Source Code" class="editing" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+          <pre class="highlighting" aria-hidden="true"><code class="language-javascript"></code></pre>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="center">
+      <button class="still-btn" id="el-change">Editing HTML Element: <span class='hljs'>&lt;<span class='hljs-name'>body</span>&gt;</span></button>
+      <button class="still-btn" id="beautify">Beautify All</button>
+      <button class="btn" id="open_console">Open Console</button>
+      <button class="btn" id="exec">Execute Code</button>
+    </div>
+    <br/>
+    <div class="center"> <iframe id="test" srcdoc=""></iframe> </div>
+    <div id="consoleWindow">
+      <div id="consoleTitle">
+        <p class="title"> Console </p>
+        <button class="close-button">&times;</button>
+      </div>
+      <div id="consoleContent">
+        <ul id="consoleMessages"></ul>
+      </div>
+    </div>
+  </main>
+  <script src="popper.js"></script>
+  <script src="tippy.js"></script>
+  <script src="snackbar.js"></script>
+  <script src="updown.js"></script>
+  <script src="highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
+  <script type="module">
+    import expand from 'https://cdnjs.cloudflare.com/ajax/libs/emmet/2.4.3/emmet.es.min.js';
+    if(document.referrer.endsWith('d7y27b12c778cb372k2lga0p47h.html')) 
+      SnackBar({
+        message: "Redirected From Old Link",
+        status: 'info',
+        theme: 'darker',
+        position: "br",
+        fixed: true,
+        timeout: 2000
+      });
+
+    // Selection Change Polyfill
+    (() => {
+      const matches = Array.from(document.querySelectorAll("textarea, input[type=text], input[type=password]"));
+      const ev = new Event("selectionchange", { bubbles: false, cancelable: false });
+      matches.forEach(v => v.addEventListener("input", (e) => e.inputType === "deleteContentBackward" ? v.dispatchEvent(ev) : e));
+      document.addEventListener("selectionchange", (e) => matches.includes(document.activeElement) ? document.activeElement.dispatchEvent(ev) : e);
+    })();
+    
+    const elem = (query) => document.querySelector(query);
+    const elems = (query) => Array.from(document.querySelectorAll(query));
+
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    const windowContainer = document.querySelector("div#consoleWindow");
+    windowContainer.toggleAttribute("hidden");
+    windowContainer.querySelector("div#consoleTitle").onmousedown = windowMouseDown;
+  
+   function windowMouseDown(e) {
+       e = e || window.event;
+       e.preventDefault();
+       pos3 = e.clientX;
+       pos4 = e.clientY;
+       document.addEventListener("mouseup", stopWindowDrag);
+       document.addEventListener("mousemove", windowDrag);
+   }
+
+    function windowDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        windowContainer.style.top = (windowContainer.offsetTop - pos2) + "px";
+        windowContainer.style.left = (windowContainer.offsetLeft - pos1) + "px";
+    }
+
+    function stopWindowDrag() {
+        document.removeEventListener("mouseup", stopWindowDrag);
+        document.removeEventListener("mousemove", windowDrag);
+    }
+
+    document.querySelector("button.btn#open_console").onclick = (e) => e.target.textContent = windowContainer.toggleAttribute("hidden") ? "Open Console" : "Close Console";
+    windowContainer.querySelector(".close-button").onclick = () => document.querySelector("button.btn#open_console").click();
+
+    const beautifyOptions = {
+      "indent_size": "1",
+      "indent_char": "\t",
+      "max_preserve_newlines": "2",
+      "preserve_newlines": true,
+      "keep_array_indentation": false,
+      "break_chained_methods": false,
+      "indent_scripts": "normal",
+      "brace_style": "collapse",
+      "space_before_conditional": true,
+      "unescape_strings": false,
+      "jslint_happy": false,
+      "end_with_newline": false,
+      "wrap_line_length": "0",
+      "indent_inner_html": false,
+      "comma_first": false,
+      "e4x": false,
+      "indent_empty_lines": true
+    }
+    
+    const test = elem('#test');
+
+    const langs = ["html", "css", "js"];
+
+    function range(startAt, endAt) {
+      return !endAt ? [...Array(startAt).keys()].map(i => i + 1) : [...Array(endAt - startAt).keys()].map(i => i + startAt);
+    } 
+
+    function textLines(el) {
+      return el.textContent.split("\n").length;
+    }
+
+    function currentLineIndex(element) {
+      return element.querySelector(".editing").value.substr(0, element.querySelector(".editing").selectionStart).split("\n").length - 1;
+    }
+
+    function currentLine(element) {
+      return element.querySelector(".editing").value.split("\n")[currentLineIndex(element)];
+    }
+
+    function startOfLine(element) {
+      return element.querySelector(".editing").value.split("\n").slice(0, currentLineIndex(element)).map(v => (v + "\n").length).reduce((acc, cur) => acc + cur, 0);
+    }
+
+    function findLine(element, idx) {
+      return element.value.split("\n")[element.value.substr(0, idx).split("\n").length - 1];
+    }
+
+    function indexOf(arr, el) {
+      return arr.findIndex(v => v.length === el.length && v.every((i, l) => i === el[l]));
+    }
+
+    function createEntriesWithKeys(keys) {
+      return Array.from({ length: keys.length }, (v, i) => [ keys[i], v ]);
+    }
+     
+    function findBracketIndexPairs(str) {
+      const bracket_stack = [];
+      const pairs = [];
+      const ending = { "{":"}","(":")","[":"]" };
+      str.split('').forEach(( char, index ) => {
+        if (["{", "(", "["].includes(char))
+          bracket_stack.push({ index, char })
+        else if (["}", ")", "]"].includes(char)) {
+          const popped = bracket_stack.pop();
+          if(ending[popped.char] === char)
+            pairs.push([popped.index, index])
+        }
+      })
+      return pairs.sort((a, b) => a[0] - b[0]);
+    }
+
+    const startBracketRe = /(\{|\[|\()/g;
+    const endBracketRe = /(\}|\]|\))/g;
+
+    elems(".editor-container[data-lang] .editing").forEach(v => v.addEventListener("selectionchange", function() {
+      const value = this.value;
+      const container = this.closest(".editor-container[data-lang]");
+      const editorFlex = container.parentElement;
+      const prevLineSpan = editorFlex.querySelector("span.line.current");
+      const curLineSpan = container.querySelectorAll("span.line")[currentLineIndex(container)];
+      if(curLineSpan && curLineSpan !== prevLineSpan) {
+        prevLineSpan?.classList.remove("current");
+        curLineSpan.classList.add("current"); 
+      }
+      const startBrackets = Array.from(container.querySelectorAll("span.bracket-open")), endBrackets = Array.from(container.querySelectorAll("span.bracket-close"));
+      if(startBrackets.length !== endBrackets.length) return;
+      const bracketPairs = findBracketIndexPairs(value);
+      const bracketElements = createEntriesWithKeys(startBrackets).map(([k, _], i) => [k, endBrackets[bracketPairs.map(v => v[1]).sort((a, b) => a - b).indexOf(bracketPairs.map(v => v[1])[i])]]); 
+      const nearBracket = bracketPairs.find(v => v[0] === this.selectionStart || v[0] === this.selectionStart - 1 || v[1] === this.selectionStart || v[1] === this.selectionStart - 1);
+      if(nearBracket && bracketElements[indexOf(bracketPairs, nearBracket)].every(v => v.classList.contains("bracket-hl"))) 
+        return;
+
+      Array.from(editorFlex.querySelectorAll("span.bracket-open")).find(v => v.classList.contains("bracket-hl"))?.classList.remove("bracket-hl"); 
+      Array.from(editorFlex.querySelectorAll("span.bracket-close")).find(v => v.classList.contains("bracket-hl"))?.classList.remove("bracket-hl");
+
+      if(nearBracket) bracketElements[indexOf(bracketPairs, nearBracket)].forEach(v => v.classList.add("bracket-hl"));
+    }));
+    
+    function update(el, text) {
+      let fromTextArea = true;
+      if(typeof text === "undefined") {
+        text = el.value;
+      } else fromTextArea = false;
+      el.value = text;
+
+      const container = el.closest(".editor-container[data-lang]");
+      const lang = container.getAttribute("data-lang");
+
+      if(container.hasAttribute('head'))
+        localStorage.setItem('cdhtml-head', text);
+      else localStorage.setItem(`cd${lang}`, text);
+
+      const result_element = container.querySelector("code");
+
+      if(text[text.length - 1] === "\n") text += " ";
+      result_element.innerHTML = text.replace(new RegExp("&", "g"), "&amp;").replace(new RegExp("<", "g"), "&lt;").replace(new RegExp(">", "g"), "&gt;");
+      hljs.highlightElement(result_element);
+
+      const splitByN = result_element.innerHTML.split('\n');
+      const focusedEditing = document.querySelector(".editing:focus");
+      const curLineIndex = currentLineIndex(container);
+      result_element.innerHTML = splitByN.map((v, i) => `<span class="line">${v}${i === (splitByN.length - 1) ? '' : '\n'}</span>`).join('').replace(startBracketRe, "<span class='bracket-open'>$1</span>").replace(endBracketRe, "<span class='bracket-close'>$1</span>");
+      if(fromTextArea) el.dispatchEvent(new Event("selectionchange", { bubbles: false, cancelable: false }));
+
+      const gutter = container.querySelector("ul.gutter");
+      const lines = gutter.childElementCount;
+      const lines2 = textLines(result_element);
+
+      if(lines > lines2)
+        Array.from(gutter.children).slice(lines2 - lines).forEach(el => el.remove());
+      else if(lines < lines2) gutter.innerHTML += range(lines, lines2).map(i => `<li class="line-number">${i + 1}</li>`).join('');
+      
+      const lineElements = Array.from(gutter.children);
+      Array.from(result_element.querySelectorAll("span.line")).forEach((el, lineNumber) => {
+        const height = el.getBoundingClientRect().height;
+        if(lineElements[lineNumber].getBoundingClientRect().height !== height && !Array.from(el.children).find(v => v.matches("span.line")))
+          lineElements[lineNumber].style.height = height + 'px';
+      });
+
+      Array.from(result_element.children)[curLineIndex]?.scrollIntoViewIfNeeded();
+    }
+
+    for(const lang of langs) {
+      const container = elem(`.editor-container[data-lang="${lang}"]`);
+      const editing = container.querySelector(".editing");
+      editing.addEventListener("input", e => update(editing));
+      editing.addEventListener("keydown", e => keyReplace(editing, e));
+
+      if(`cd${lang}` in localStorage) 
+        update(editing, localStorage.getItem(`cd${lang}`));
+
+      container.querySelector("ul.gutter").innerHTML = '';
+      for(let i = 0; i < textLines(container.querySelector("code")); i++)
+        container.querySelector("ul.gutter").innerHTML += `<li class="line-number">${i + 1}</li>`;
+      
+      const lineElements = Array.from(container.querySelector("ul.gutter").children);
+      Array.from(container.querySelector("code").querySelectorAll("span.line")).forEach((el, lineNumber) => {
+        const height = el.getBoundingClientRect().height;
+        if(lineElements[lineNumber].getBoundingClientRect().height !== height && !Array.from(el.children).find(v => v.matches("span.line")))
+          lineElements[lineNumber].style.height = height + 'px';
+      });
+      editing.setSelectionRange(0, 0);
+      Array.from(container.querySelector("code").children)[currentLineIndex(container)]?.scrollIntoViewIfNeeded();
+    }
+
+    function exec() {
+      test.setAttribute('srcdoc', `
+        <!DOCTYPE html>
+          <html>
+            <head>
+${'cdhtml-head' in localStorage ? localStorage.getItem('cdhtml-head') : ''}
+              <style> 
+                *, *::before, *::after {
+                  box-sizing: border-box;
+                }
+
+                @media (prefers-color-scheme: dark) {
+                  :root {
+                    color-scheme: dark light;
+                  }
+                }
+
+                :root {
+                  --theme-clr: rgb(50, 150, 255);
+                }
+
+                html:focus-within {
+                  scroll-behavior: smooth;
+                }
+
+                body, h1, h2, h3, h4, p, blockquote {
+                  margin: 0;
+                }
+
+                img {
+                  max-width: 100%;
+                  display: block;
+                }
+
+                body {
+                  min-height: 100vh;
+                  text-rendering: optimizeSpeed;
+                  line-height: 1.5;
+                }
+
+                input,
+                button,
+                textarea,
+                select {
+                  font: inherit;
+                }
+
+${elem(".editor-container[data-lang='css'] .editing").value} 
+              </style>
+            </head>
+            <body>
+${'cdhtml' in localStorage ? localStorage.getItem('cdhtml') : ''} 
+
+              <script src="./theme.js">\x3c/script>
+              <script src="./custom-console.js">\x3c/script>
+              <script type="module"> 
+                  try {
+${elem(".editor-container[data-lang='js'] .editing").value}
+                  } catch(error) {
+                    console.error(error);
+                    window.parent.console.error(error);
+                  }
+              \x3c/script>
+            </body>
+          </html>
+    `);
+  }
+
+    exec();
+
+    elem('button.btn#exec').onclick = exec;
+
+    elem('button.still-btn#el-change').onclick = function() {
+      if(elem(".editor-container[data-lang='html']").hasAttribute('head')) {
+          if(!('cdhtml' in localStorage)) localStorage.setItem('cdhtml', '')
+          this.querySelector(".hljs-name").textContent = "body";
+          elem(".editor-container[data-lang='html']").removeAttribute('head');
+          update(elem(".editor-container[data-lang='html'] .editing"), localStorage.getItem("cdhtml"));
+          elem(".editor-container[data-lang='html'] .editing").blur();
+      } else {
+          if(!('cdhtml-head' in localStorage)) localStorage.setItem('cdhtml-head', '')
+          this.querySelector(".hljs-name").textContent = "head";
+          elem(".editor-container[data-lang='html']").setAttribute("head", "");
+          update(elem(".editor-container[data-lang='html'] .editing"), localStorage.getItem("cdhtml-head"));
+          elem(".editor-container[data-lang='html'] .editing").blur();
+      }
+    };
+
+    elem("button.still-btn#beautify").onclick = () => {
+      for(const lang of langs) {
+        elem(`.editor-container[data-lang="${lang}"] .editing`).value = globalThis[`${lang}_beautify`](elem(`.editor-container[data-lang="${lang}"] .editing`).value, beautifyOptions);
+        update(elem(`.editor-container[data-lang="${lang}"] .editing`));
+      }
+    };
+
+    window.onresize = () => {
+      for(const container of elems(".editor-container[data-lang]")) update(container.querySelector(".editing"), container.querySelector(".editing").value);
+    };
+  
+  function moveSelection(el, amount) {
+    el.setSelectionRange(el.selectionStart + amount, el.selectionEnd + amount);
+  }
+
+  function insertText(el, text, mode="preserve") {
+    el.setRangeText(text, el.selectionStart, el.selectionEnd, mode);
+  }
+
+  function wrapSelection(el, textStart, textEnd) {
+    insertText(el, textStart + el.value.substring(el.selectionStart, el.selectionEnd) + textEnd, "select");
+    el.setSelectionRange(el.selectionStart + textStart.length, el.selectionEnd - textEnd.length);
+  }
+
+  function inRange(val, min, max) {
+    return min < val && max > val;
+  }
+
+  function keyReplace(element, event) {
+    const code = element.value;
+    const selStart = element.selectionStart, selEnd = element.selectionEnd;
+    const container = element.closest(".editor-container[data-lang]");
+    const lang = container.getAttribute("data-lang");
+    const curLine = currentLine(container);
+
+    if(event.key.toLowerCase() === "a" && event.shiftKey && lang === "html") {
+      event.preventDefault();
+      const abbr = prompt("Enter Emmet Abbreviation To Wrap With:").trim();
+      const selected = code.substring(element.selectionStart, element.selectionEnd);
+      const whitespace = curLine.match(/^[^\S\r\n]+/g) ? curLine.match(/^[^\S\r\n]+/g)[0] : "";
+      if(abbr.endsWith("*"))
+        insertText(element, expand(abbr.slice(0, abbr.split('').findLastIndex(v => ["^",">","+"].includes(v)) + 1) + selected.split('\n').filter(Boolean).map(v => `${abbr.split(/\^|\>|\+/).at(-1).slice(0, -1)}{${v.trim()}}`).join("+")).split('').map(v => v === "\n" ? "\n" + whitespace : v).join(''), "end");
+      else insertText(element, expand(abbr + `{${selected}}`).split('').map(v => v === "\n" ? "\n" + whitespace : v).join(''), "end");
+      update(element);
+    }
+
+    for(const keys of [`\`\``, "\"\"", '\'\'', "()", "[]", "{}"]) {
+      if(event.key === keys.charAt(0)) {
+        event.preventDefault();
+        wrapSelection(element, ...keys);
+        update(element);
+      }
+    }
+
+    if(element.selectionStart !== element.selectionEnd)
+      return
+
+    if(event.key === "Tab") {
+        event.preventDefault(); 
+
+        if(lang === "html" && event.shiftKey) {
+          const start = startOfLine(container);
+          const whitespace = curLine.match(/^[^\S\r\n]+/g) ? curLine.match(/^[^\S\r\n]+/g)[0] : "";
+          const expandedEmmet = whitespace + expand(curLine.trim()).split('').map(v => v === "\n" ? "\n" + whitespace : v).join('');
+  
+          element.setRangeText(expandedEmmet, start, start + curLine.length, "end");
+        } else if(lang === "css" && event.shiftKey) {
+          const start = startOfLine(container);
+          const whitespace = curLine.match(/^[^\S\r\n]+/g) ? curLine.match(/^[^\S\r\n]+/g)[0] : "";
+          const expandedEmmet = whitespace + expand(curLine.trim(), { type: "stylesheet" }).split('').map(v => v === "\n" ? "\n" + whitespace : v).join('');
+
+          element.setRangeText(expandedEmmet, start, start + curLine.length, "end");
+        } else insertText(element, "\t", "end");
+
+        update(element);
+    }
+  
+    if(event.key === "Backspace" && [`\`\``, "\"\"", '\'\'', "()", "{}", "[]"].includes(code.substring(selStart - 1, selEnd + 1))) {
+      event.preventDefault();
+
+      element.setRangeText('', selStart - 1, selEnd + 1);
+
+      update(element);
+    }
+
+    if(event.key === "Enter" && [`\`\``, "()", "{}", "[]"].includes(code.substring(selStart - 1, selEnd + 1))) {
+      event.preventDefault();
+
+      const whitespace = curLine.match(/^[^\S\r\n]+/g) ? curLine.match(/^[^\S\r\n]+/g)[0] : "";
+      insertText(element, `\n${whitespace}\t\n${whitespace}`);
+      moveSelection(element, `\n\t${whitespace}`.length);
+
+      update(element);
+    } else if(event.key === "Enter") {
+      event.preventDefault();
+      const bStart = findBracketIndexPairs(element.value).find((value, _, arr) => inRange(selStart, value[0], value[1]) && (value[1] - value[0]) === Math.min(...arr.filter(v => inRange(selStart, v[0], v[1])).map(v => v[1] - v[0])));
+      const line = bStart !== null ? findLine(element, bStart) : curLine;
+      const whitespace = line.match(/^[^\S\r\n]+/g) ? line.match(/^[^\S\r\n]+/g)[0] : "";
+      insertText(element, `\n${whitespace}${line === curLine ? '' : '\t'}`, "end");
+
+      update(element);
+    }
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+span.mcolor {
+  color: var(--theme-clr);
+}
+
+form#user-form {
+  width: max-content;
+  max-width: 70dvw;
+  margin-top: 20dvh;
+  margin-inline: auto;
+  border-radius: 1rem;
+  background: rgb(100, 100, 100, 0.1);
+  border: 1px solid rgb(175, 175, 175, 0.2);
+  backdrop-filter: blur(1rem) brightness(0.6);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+form#user-form::-webkit-scrollbar-track, form#user-form::-webkit-scrollbar-thumb {
+  border-radius: 0 8px 8px 0;
+}
+
+form#user-form h1 {
+  text-align: center;
+  margin: 0;
+  border-bottom: 1px solid rgb(175, 175, 175, 0.2);
+}
+
+i[class^="fa"]#eye {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  cursor: pointer;
+}
+
+form#user-form input:not([type="file"]) {
+  font-family: inherit;
+  display: block;
+  width: 100%;
+  background: rgb(0, 0, 0, 0.1);
+  border: none;
+  outline: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid rgb(175, 175, 175, 0.2);
+  border-radius: 1rem;
+  transition: background 0.5s ease;
+  backdrop-filter: blur(0.25rem);
+}
+
+form#user-form input:not([type="file"]):is(:focus, :hover) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+form#user-form input:not([type="file"])::placeholder {
+  color: lightgray;
+}
+
+input[type="file"]#photo-input {
+  font-family: inherit;
+}
+
+input[type="file"]#photo-input::before {
+  content: "Enter Photo File:";
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+}
+
+input[type="file"]#photo-input:valid::file-selector-button {
+  background-color: rgb(0, 255, 0, 0.1);
+}
+
+input[type="file"]#photo-input:invalid::file-selector-button {
+  background-color: rgb(255, 0, 0, 0.1);
+}
+
+button.glass-btn, input[type="file"]#photo-input::file-selector-button {
+  border-radius: 1rem;
+  background-color: rgb(0, 0, 0, 0.1);
+  border: 1px solid rgb(175, 175, 175, 0.2);
+  backdrop-filter: blur(0.25rem) brightness(0.85);
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: background-color 300ms;
+}
+
+button:not(.toggle-btn).glass-btn:hover, input[type="file"]#photo-input::file-selector-button:hover {
+  background-color: rgb(100, 100, 100, 0.1);
+}
+
+button.glass-btn:is(.active, :active), input[type="file"]#photo-input::file-selector-button:active {
+  background-color: rgb(0, 0, 0, 0.2);
+}
+
+form#user-form[data-mode="login"] :is(input#username-input, input[type="file"]#photo-input) {
+  display: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+div#chat {
+  display: flex;
+  width: 90dvw;
+  margin-top: 5dvh;
+  margin-inline: auto;
+  height: 85dvh;
+  background-color: rgb(0, 0, 0, 0.1);
+  border: 1px solid rgb(175, 175, 175, 0.2);
+  border-radius: 1rem;
+  -webkit-backdrop-filter: blur(1.25rem) brightness(0.5);
+  backdrop-filter: blur(1.25rem) brightness(0.5);
+}
+
+div#chat div#flex-dir-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+ul#channel-content {
+  list-style: none;
+  flex: 1;
+  padding-inline-start: 0;
+  margin-block: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+li.chat-message, div#user {
+  display: flex;
+  padding-block: 0.1rem;
+}
+
+li.chat-message:first-child {
+  margin-top: auto;
+}
+
+li.chat-message[data-status="sent"]:hover {
+  background-color: #111;
+}
+
+div.user-message, div#user-info {
+  margin-left: 0.3rem;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.message-content {
+  white-space: pre-wrap;
+  tab-size: 2;
+}
+
+.message-content * {
+  margin-block: 0 !important;
+}
+ 
+.message-content :is(a, button) {
+  color: dodgerblue;
+  transition: color 300ms;
+}
+
+.message-content :is(a, button):hover {
+  color: deepskyblue;
+}
+
+/* .message-content pre {
+  border: 1px solid #2e2e2e;
+  padding: 0.5em;
+  background-color: #1e1e1e;
+  border-radius: 0.25rem;
+} */
+
+p.username span::before {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-size: 0.5rem;
+  font-weight: 900;
+  margin-right: 0.2rem;
+}
+
+p.username span {
+  color: white;
+  padding: 0.05rem 0.15rem;
+  font-size: 0.75rem;
+  border-radius: 0.2rem;
+}
+
+p.username span.bot {
+  background-color: royalblue;
+}
+
+p.username span.owner {
+  background-color: purple;
+}
+
+p.username time.timestamp, .message-content span.reminder {
+  font-size: 0.625rem;
+  color: gray;
+}
+
+.message-content span.reminder {
+  user-select: none;
+  display: block;
+}
+
+aside#sidebar {
+  border-right: 1px rgb(175, 175, 175, 0.2) solid;
+}
+
+h1#logo {
+  text-shadow: 3px 3px 0 var(--theme-clr);
+  margin-block: 0;
+  margin-inline: 0;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+div#categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+a.channel[data-type] {
+  width: max-content;
+  display: block;
+  text-decoration: none;
+  margin-left: 0.625rem;
+  margin-top: 0;
+  transition: color 300ms, text-shadow 300ms;
+}
+
+a.channel[data-type]::before {
+  content: "\f086" " ";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+a.channel[data-type="chat"]::before {
+  content: "\f086" " ";
+}
+
+a.channel[data-type="news"]::before {
+  content: "\f0a1" " ";
+}
+
+a.channel[data-type="list"]::before {
+  content: "\f03a" " ";
+}
+
+a.channel[data-type]:hover, a.channel[data-type]:target {
+  color: var(--theme-clr);
+  text-shadow: 0 0 5px var(--theme-clr);
+}
+
+a.channel[data-type]:target {
+  cursor: default;
+}
+
+a.channel[data-type]:focus-visible {
+  outline: none;
+}
+
+div.channels-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms;
+}
+
+div.channels-container > div.channels {
+  overflow: hidden;
+}
+
+div.category[data-name]:has(input[type="checkbox"]:checked) div.channels-container {
+  grid-template-rows: 1fr;
+}
+
+div.category[data-name] label.name > input[type="checkbox"] {
+  display: none;
+}
+
+div.category[data-name] label.name {
+  cursor: pointer;
+  user-select: none;
+}
+
+div.category[data-name] label.name::before {
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-inline: 0.4em;
+  display: inline-block;
+  transform: rotate(0);
+  transition: transform 300ms;
+}
+
+div.category[data-name] label.name:has(input[type="checkbox"]:checked)::before {
+  transform: rotate(0.25turn);
+}
+ 
+div#bar {
+  display: flex;
+  padding: 0.125rem;
+  position: relative;
+  border-bottom: 1px rgb(175, 175, 175, 0.2)solid;
+}
+
+img.profile-pic {
+  flex-shrink: 0;
+  border-radius: 100%;
+  width: 2.75rem;
+  height: 2.75rem;
+  user-select: none;
+  box-shadow: 0 0 10px var(--theme-clr);
+  border: 3px var(--theme-clr) solid;
+}
+
+div#user img.profile-pic {
+  cursor: pointer;
+}
+
+p {
+  text-shadow: none;
+  font-size: 1rem;
+  margin: 0;
+  text-align: initial;
+  width: auto;
+}
+
+p.username {
+  color: var(--theme-clr);
+}
+
+p#status[data-status]::before {
+  content: attr(data-status);
+  text-transform: capitalize;
+}
+
+p#status[data-status="online"]::before {
+  color: limegreen;
+}
+
+p#status[data-status="offline"]::before {
+  color: lightgray;
+}
+
+p#status[data-status="idle"]::before {
+  color: yellow;
+}
+
+p#status[data-status="do not disturb"]::before {
+  color: red;
+}
+
+ul#channel-content[data-channel] + form#message-form {
+  display: flex;
+  position: relative;
+  border-top: 1px rgb(175, 175, 175, 0.2) solid;
+}
+
+textarea#message-input {
+  padding: 0.5rem;
+  flex: 1;
+  tab-size: 2;
+  font-size: 1.25rem;
+  border-radius: 0;
+  text-align: left;
+  background: none;
+  outline: none;
+  border: none;
+  border-bottom-right-radius: 1rem;
+  font-family: inherit;
+  opacity: 1;
+  resize: none;
+  transition: box-shadow 300ms ease-in-out;
+}
+
+textarea#message-input::placeholder {
+  color: var(--theme-clr);
+  opacity: 0.5;
+}
+
+textarea#message-input:focus {
+  box-shadow: 0 0 5px 0 var(--theme-clr) inset, 0 0 5px 0 var(--theme-clr);
+}
+
+textarea#message-input:disabled + div#controls {
+  display: none;
+}
+
+div#controls {
+  position: absolute;
+  inset: 50% 1rem auto auto;
+  transform: translateY(-50%);
+  color: white;
+}
+
+div#controls button {
+  font-size: 1.2em;
+  transition: color 300ms linear;
+}
+
+div#controls button:hover {
+  color: var(--theme-clr);
+}

@@ -1,0 +1,68 @@
+{
+    "error": 0,
+    "message": "ok",
+    "data": {
+        "$type": "System.Dynamic.ExpandoObject, System.Linq.Expressions",
+        "launchUrlList": {
+            "$type": "System.Collections.Generic.List`1[[UWPAPI.Models.H5LaunchUrlModel, UWPAPI]], System.Private.CoreLib",
+            "$values": [{
+                "id": 1,
+                "image": "https://zazgames.com/thumbs/cut-the-rope-ii-cut-the-rope-ii-512x512_small.jpg",
+                "url": "https://zazgames.com/game/cut-the-rope-ii",
+                "launchPercent": 1,
+                "launchType": "InAppRecommend",
+                "packageName": "cut-the-rope-ii",
+                "channel": "h5",
+                "isDeleted": false,
+                "addTime": "2021-07-06T22:51:00",
+                "updateTime": "2021-02-06T22:51:00"
+            }, {
+                "id": 6,
+                "image": "https://zazgames.com/thumbs/subway-surfers-subway-surfers-81E2gCx1c1L_small.png",
+                "url": "https://zazgames.com/game/subway-surfers",
+                "launchPercent": 1,
+                "launchType": "1",
+                "packageName": "subway-surfers",
+                "channel": "h5",
+                "isDeleted": false,
+                "addTime": "2021-02-10T00:24:00",
+                "updateTime": "2021-02-10T00:24:00"
+            }, {
+                "id": 4,
+                "image": "https://zazgames.com/thumbs/raft-wars-2-raft-wars-2-512x512_small.jpg",
+                "url": "https://zazgames.com/game/raft-wars-2",
+                "launchPercent": 1,
+                "launchType": "InAppRecommend",
+                "packageName": "raft-wars-2",
+                "channel": "h5",
+                "isDeleted": false,
+                "addTime": "2021-02-10T00:24:00",
+                "updateTime": "2021-02-10T00:24:00"
+            }, {
+                "id": 7,
+                "image": "https://zazgames.com/thumbs/angela-twins-family-day-angela-twins-family-day-my-talking1-copy_small.jpg",
+                "url": "https://zazgames.com/game/angela-twins-family-day",
+                "launchPercent": 1,
+                "launchType": "1",
+                "packageName": "Angela Twins Family Day",
+                "channel": "h5",
+                "isDeleted": false,
+                "addTime": "2021-02-10T00:24:00",
+                "updateTime": "2021-02-10T00:24:00"
+            }, {
+                "id": 12,
+                "image": "https://zazgames.com/thumbs/joinovqflijab4khwoih-joinovqflijab4khwoih-418cEZfh8-L_small.jpg",
+                "url": "https://zazgames.com/game/joinovqflijab4khwoih",
+                "launchPercent": 1,
+                "launchType": "1",
+                "packageName": "Online game Minecraft Classic",
+                "channel": "h5",
+                "isDeleted": false,
+                "addTime": "2021-02-10T00:24:00",
+                "updateTime": "2021-02-10T00:24:00"
+            }]
+        },
+        "pageCount": 3,
+        "total": 11
+    }
+}

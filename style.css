@@ -1,0 +1,54 @@
+@import "./new.css";
+
+body {
+  background-image: linear-gradient(to right bottom, #2e2e2e, #4f4f4f);
+  background-attachment: fixed;
+}
+
+a#back {
+  font-size: 1.5rem;
+  color: white;
+  left: 50%;
+  transform: translateX(-50%);
+  text-shadow: 3px 1px var(--theme-clr);
+  position: absolute;
+  top: 0;
+  z-index: 99999;
+  transition: color 300ms, text-shadow 300ms, transform 300ms;
+}
+
+a#back:hover {
+  color: var(--theme-clr);
+  text-shadow: 0 0 4px;
+  transform: translateX(-50%) scale(1.05);
+}
+
+div.gameboy > a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: transparent;
+  text-shadow: 3px 1px var(--theme-clr);
+  width: max-content;
+  display: block;
+  margin: 0 auto;
+  transition: color 300ms, text-shadow 300ms, transform 300ms;
+}
+
+div.gameboy > a:hover {
+  color: var(--theme-clr);
+  text-shadow: 0 0 4px;
+  transform: scale(1.05);
+}
+
+.container {
+  margin: 0 auto;
+}
+
+iframe {
+  margin: 3rem auto 0 auto;
+  padding: 0;
+  width: 80dvw;
+  height: 80dvh;
+  display: block;
+  border: none;
+}
